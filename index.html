@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sequence Predictor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+            padding-top: 30px;
+            overflow: auto;
+        }
+        .container {
+            text-align: center;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            margin-bottom: 50px;
+        }
+        .result {
+            margin-top: 20px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .graph-container img {
+            width: 100%;
+            max-width: 600px;
+            margin-top: 20px;
+        }
+        h1, h2, p {
+            margin-bottom: 15px;
+        }
+        .info-section {
+            margin-bottom: 30px;
+            text-align: left;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        .info-section h2 {
+            margin-bottom: 10px;
+            font-size: 20px;
+            color: #333;
+        }
+        .info-section p {
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        /* Container for buttons side by side */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        /* Professional link styling */
+        a.professional-link {
+            display: inline-block;
+            font-size: 12px;
+            color: #fff;
+            text-decoration: none;
+            background-color: #4CAF50;
+            padding: 10px 50px;
+            border-radius: 110px;
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        a.professional-link:hover {
+            background-color: #45a049;
+            transform: scale(1.03);
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+        }
+
+        a.professional-link i {
+            margin-right: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        a.professional-link:hover i {
+            transform: rotate(360deg);
+        }
+
+        /* Error message styling */
+        .error-message {
+            color: red;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Sequence Prediction</h1>
+    
+    <div class="info-section">
+        <!-- Use flexbox to align buttons next to each other -->
+        <div class="button-container">
+            <a href="/how-it-works" class="professional-link">
+                <i class="fas fa-cogs"></i> Learn More About How It Works
+            </a>
+            <a href="/about-me" class="professional-link">
+                <i class="fas fa-user"></i> About Me
+            </a>
+        </div>
+    </div>
+    
+    <form method="POST">
+        <label for="input_series">Enter 5 numbers separated by spaces:</label>
+        <br>
+        <input type="text" id="input_series" name="input_series" placeholder="e.g. 1 2 3 4 5" required>
+        <br><br>
+        <input type="submit" value="Predict Next Numbers">
+    </form>
+
+    <!-- Display error message if input series length is not 5 -->
+    {% if error_message %}
+        <div class="error-message">{{ error_message }}</div>
+    {% endif %}
+
+    {% if input_series %}
+    <div class="result">
+        <h2>Results:</h2>
+        <p><strong>Input Series:</strong> {{ input_series }}</p>
+        <p><strong>Predicted Next Numbers:</strong> 
+            {% for num in predicted_numbers %}
+                {{ num }}{% if not loop.last %}, {% endif %}
+            {% endfor %}
+        </p>
+
+        {% if confidence is not none %}
+            <p><strong>Confidence from Polynomial Regression:</strong> {{ confidence }}%</p>
+        {% endif %}
+
+        {% if sequence_confidence is not none %}
+            <p><strong>Confidence for Sequence Type:</strong> {{ sequence_confidence }}%</p>
+        {% endif %}
+
+        <!-- Display the identified sequence type -->
+        {% if sequence_type %}
+            <p><strong>This sequence is in:</strong> {{ sequence_type }}</p>
+        {% endif %}
+
+        <div class="graph-container">
+            {% if graph_url %}
+                <h3>Prediction Graph:</h3>
+                <img src="{{ graph_url }}" alt="Prediction Graph">
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+</body>
+</html>
+
