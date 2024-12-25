@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How It Works</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: #4caf50;
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        .content {
+            padding: 2rem;
+            max-width: 800px;
+            margin: auto;
+        }
+        .content h1 {
+            margin-bottom: 1rem;
+        }
+        .content p {
+            margin-bottom: 1rem;
+        }
+        /* Professional link button styling */
+        a.professional-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: #fff;
+            text-decoration: none;
+            background-color: #4caf50;
+            padding: 10px 50px;
+            border-radius: 110px;
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        a.professional-link:hover {
+            background-color: #45a049;
+            transform: scale(1.03);
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+        }
+
+        a.professional-link i {
+            margin-right: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        a.professional-link:hover i {
+            transform: rotate(360deg);
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>How It Works</h1>
+    </header>
+    <div class="content">
+        <div id="how-it-works">
+            <h2>How the Sequence Prediction Program Works</h2>
+          
+            <p>This program predicts the next numbers in a given sequence, analyzes the pattern, and displays the confidence of the prediction. It can detect various types of mathematical progressions and use regression when the sequence doesn't fit a common pattern. Below is a detailed explanation of each part:</p>
+          
+            <h3>1. User Input</h3>
+            <p>When you visit the web application, you’re prompted to enter <strong>5 numbers</strong> (separated by spaces) representing the sequence you want to analyze. For example:</p>
+            <pre><code>1 4 9 16 25</code></pre>
+            <p>This input is then processed by the program to identify the pattern and make predictions.</p>
+          
+            <h3>2. Identifying the Sequence Type</h3>
+            <p>The first thing the program does is <strong>analyze the sequence</strong> to determine if it follows any well-known pattern. Here’s how it works:</p>
+            <ul>
+              <li><strong>Arithmetic Progression (AP):</strong> The difference between consecutive terms is constant. For example: <code>2, 4, 6, 8, 10</code> (Difference of 2 between each term).</li>
+              <li><strong>Geometric Progression (GP):</strong> The ratio between consecutive terms is constant. For example: <code>2, 4, 8, 16, 32</code> (Each term is doubled).</li>
+              <li><strong>Fibonacci Sequence:</strong> Each term is the sum of the two previous terms. For example: <code>1, 1, 2, 3, 5</code> (1 + 1 = 2, 1 + 2 = 3, etc.).</li>
+              <li><strong>Harmonic Progression (HP):</strong> The differences between the reciprocals (1/x) of the terms are constant. For example: <code>1, 1/2, 1/3, 1/4, 1/5</code> (Differences in reciprocals are equal).</li>
+              <li><strong>Factorial Progression:</strong> Each term is the factorial of a number. For example: <code>1, 2, 6, 24, 120</code> (Factorials of 1, 2, 3, 4, and 5).</li>
+            </ul>
+            <p>The program checks the differences or ratios between consecutive terms and matches the sequence to one of these types.</p>
+          
+            <h3>3. Predicting the Next Numbers</h3>
+            <p>Once the program identifies the type of sequence, it calculates the next three numbers based on the identified pattern:</p>
+            <ul>
+              <li><strong>For Arithmetic Progression (AP):</strong> It adds the constant difference to the last number in the series.</li>
+              <li><strong>For Geometric Progression (GP):</strong> It multiplies the last number by the constant ratio.</li>
+              <li><strong>For Fibonacci Sequence:</strong> It adds the two previous terms to predict the next terms.</li>
+              <li><strong>For Harmonic Progression (HP):</strong> It uses the common difference in the reciprocals to calculate the next terms.</li>
+              <li><strong>For Factorial Progression:</strong> It computes the next factorial numbers.</li>
+            </ul>
+          
+            <h3>4. When the Sequence is Not Recognized (Polynomial Regression)</h3>
+            <p>If the program cannot identify the sequence type (for example, if the sequence is irregular), it falls back to <strong>Polynomial Regression</strong>. Here’s what happens:</p>
+            <ul>
+              <li><strong>Polynomial Regression</strong> fits a curve to the existing data using a second-degree polynomial (quadratic function).</li>
+              <li>The program then uses this fitted curve to <strong>predict the next three values</strong>.</li>
+            </ul>
+            <p>This method works well for sequences that don't follow any simple pattern, as it tries to find the best-fitting curve for the data.</p>
+          
+            <h3>5. Confidence Calculation</h3>
+            <p>For sequences where Polynomial Regression is used, the program calculates a <strong>confidence score</strong> to show how well the regression model fits the given data:</p>
+            <ul>
+              <li>The <strong>R² score</strong> (Coefficient of Determination) is calculated, which indicates how well the regression line explains the data.</li>
+              <li>The program then converts this score into a percentage, representing the <strong>confidence level</strong> in the prediction.</li>
+            </ul>
+            <p>This confidence score is displayed on the screen alongside the predicted next numbers.</p>
+          
+            <h3>6. Visualization of the Sequence and Predictions</h3>
+            <p>To help you better understand the sequence and the predictions:</p>
+            <ul>
+              <li>The program <strong>plots a graph</strong> showing:
+                <ul>
+                  <li>The <strong>input series</strong> as blue dots.</li>
+                  <li>The <strong>predicted next numbers</strong> as red dots.</li>
+                  <li>A <strong>forecast line</strong> (if applicable) connecting the last number of the input series to the first predicted number.</li>
+                </ul>
+              </li>
+            </ul>
+            <p>The graph helps visualize how the predicted values fit into the pattern of the sequence.</p>
+          
+            <h3>7. Final Output</h3>
+            <p>The program shows the <strong>predicted next 3 numbers</strong>, displays the <strong>confidence score</strong> (if Polynomial Regression was used), and generates a <strong>graph</strong> of the input sequence and predicted numbers.</p>
+            <p>The result could look like:</p>
+            <ul>
+              <li><strong>Predicted Numbers:</strong> <code>[36, 49, 64]</code></li>
+              <li><strong>Confidence:</strong> <code>95.2%</code> (if using Polynomial Regression)</li>
+              <li><strong>Graph:</strong> A plot with the series and predicted points.</li>
+            </ul>
+          
+            <h3>How to Use the Application</h3>
+            <p>1. <strong>Enter a sequence of 5 numbers</strong> in the provided input box.</p>
+            <p>2. <strong>Click the "Predict" button</strong> to receive the predicted next numbers.</p>
+            <p>3. The tool will:
+              <ul>
+                <li>Identify the sequence pattern (if possible).</li>
+                <li>Predict the next three numbers.</li>
+                <li>Display the confidence score and graph.</li>
+              </ul>
+            </p>
+          </div>
+
+          <!-- Updated Back to Home button -->
+          <a href="/" class="professional-link">
+              Back to Home
+          </a>
+          
+    </div> <!-- End of content container -->
+</body>
+</html>
